@@ -1,0 +1,28 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: Ben Dews
+  description: LetsEncrypt renewal using Cloudflare DNS
+  license: MIT
+  min_ansible_version: 2.2
+
+  galaxy_tags: []
+
+  platforms:
+    - name: EL
+      versions:
+      - 6
+      - 7
+    - name: Debian
+      versions:
+      - all
+    - name: Ubuntu
+      versions:
+      - all
+  galaxy_tags:
+    - web
+    - ssl
+    - letsencrypt
+    - cloudflare
+    - https
