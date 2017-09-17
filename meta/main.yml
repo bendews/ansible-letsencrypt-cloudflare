@@ -7,8 +7,6 @@ galaxy_info:
   license: MIT
   min_ansible_version: 2.2
 
-  galaxy_tags: []
-
   platforms:
     - name: EL
       versions:
@@ -20,6 +18,7 @@ galaxy_info:
     - name: Ubuntu
       versions:
       - all
+
   galaxy_tags:
     - web
     - ssl

@@ -43,7 +43,7 @@ Generated files can be removed after use by specifying the following variable:
       tasks:
         - name: Renew/Download new SSL certificates
           include_role:
-            name: letsencrypt_cloudflare
+            name: letsencrypt-cloudflare
           vars:
             letsencrypt_email: "a@abc.com"
             cloudflare_email: "a@abc.com"
