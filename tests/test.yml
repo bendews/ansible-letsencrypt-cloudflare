@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   connection: local
+  become: yes
   tasks:
 
     - name: Test role with variables
