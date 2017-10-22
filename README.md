@@ -1,5 +1,6 @@
-# LetsEncrypt-Cloudflare
+# LetsEncrypt-Cloudflare 
 
+[![Build Status](https://travis-ci.org/bendews/ansible-letsencrypt-cloudflare.svg?branch=master)](https://travis-ci.org/bendews/ansible-letsencrypt-cloudflare)
 This role simplifies the process of renewing LetsEncrypt Certificates when utilising Cloudflare as a DNS provider.
 
 ## Requirements
