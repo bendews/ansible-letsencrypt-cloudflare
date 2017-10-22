@@ -29,8 +29,4 @@ script:
   # Run role and ensure it completes successfully.
   - "ansible-playbook -i tests/inventory tests/$TESTBOOK --skip-tags web-api"
   # Run role again and check for idempotence.
-  - >
-    "ansible-playbook -i tests/inventory tests/$TESTBOOK --skip-tags web-api 
-    | grep -q 'changed=0.*failed=0' 
-    && (echo 'Idempotence test: pass' && exit 0) 
-    || (echo 'Idempotence test: fail' && exit 1)"
+  - "ansible-playbook -i tests/inventory tests/$TESTBOOK --skip-tags web-api | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)"
