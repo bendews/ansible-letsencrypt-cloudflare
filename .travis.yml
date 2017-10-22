@@ -1,0 +1,36 @@
+---
+language: python
+python: "2.7"
+
+env:
+  - TESTBOOK=test.yml
+
+before_install:
+  - sudo apt-get update -qq
+
+install:
+  # Install Ansible.
+  - pip install ansible
+
+  # Add ansible.cfg to pick up roles path.
+  - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
+  
+  # Create skeleton files required for role to function
+  - mkdir /tmp/cert_test
+  - mkdir /tmp/cert_test/letsencrypt
+  - touch /tmp/cert_test/localhost.key
+  - touch /tmp/cert_test/localhost.csr
+  - touch /tmp/cert_test/localhost.crt
+  - touch /tmp/cert_test/letsencrypt/letsencrypt_account.key
+
+script:
+  # Check the role/playbook's syntax.
+  - "ansible-playbook -i tests/inventory tests/$TESTBOOK --syntax-check"
+  # Run role and ensure it completes successfully.
+  - "ansible-playbook -i tests/inventory tests/$TESTBOOK --skip-tags web-api"
+  # Run role again and check for idempotence.
+  - >
+    "ansible-playbook -i tests/inventory tests/$TESTBOOK --skip-tags web-api 
+    | grep -q 'changed=0.*failed=0' 
+    && (echo 'Idempotence test: pass' && exit 0) 
+    || (echo 'Idempotence test: fail' && exit 1)"
