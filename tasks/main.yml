@@ -1,33 +1,8 @@
 ---
-- name: update apt cache
-  apt:
-    update_cache: yes
-    cache_valid_time: 3600
-  when: ansible_os_family == 'Debian'
-
-- name: install openssl (Debian)
-  apt:
-    name: "{{ item }}"
-    state: present
-  with_items:
-  - openssl
-  when: ansible_os_family == 'Debian'
-
-- name: install openssl (Red Hat) (Requires EPEL)
-  yum:
-    name: "{{ item }}"
-    state: present
-  with_items:
-  - openssl
-  when: ansible_os_family == 'RedHat'
-
-- name: install openssl (FreeBSD)
-  pkgng:
-    name: "{{ item }}"
-    state: present
-  with_items:
-  - openssl
-  when: ansible_os_family == 'FreeBSD'
+- name: Install OpenSSL
+  package:
+    name: openssl
+    state: latest
 
 - name: check if the certificate directory exists
   stat:
