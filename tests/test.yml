@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+
+    - name: Test role with variables
+      include_role:
+        name: ../ansible-letsencrypt-cloudflare
+      vars:
+        letsencrypt_email: "a@abc.com"
+        cloudflare_email: "a@abc.com"
+        cloudflare_domain: "abc.com"
+        cloudflare_api_key: "AAABBBCCCDDDEEE111222333"
+        certificate_directory: "/tmp/cert_test"
+        letsencrypt_key_directory: "/tmp/cert_test/letsencrypt"
+        include_intermediate: yes

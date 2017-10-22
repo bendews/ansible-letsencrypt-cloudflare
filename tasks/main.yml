@@ -90,6 +90,8 @@
     account_email: "{{ letsencrypt_email }}"
     remaining_days: "{{ certificate_remaining_days }}"
   register: letsencrypt_challenge
+  tags:
+    - web-api
 
 - name: Create DNS Record  
   cloudflare_dns:
@@ -103,6 +105,8 @@
     account_api_token: "{{ cloudflare_api_key }}"
   with_dict: "{{ letsencrypt_challenge['challenge_data'] | default({}) }}"
   when: letsencrypt_challenge['challenge_data'] is defined
+  tags:
+    - web-api
 
 - name: validate the Let's Encrypt challenge
   letsencrypt:
@@ -118,6 +122,8 @@
   delay: 10
   until: letsencrypt_validation | success
   when: letsencrypt_challenge['challenge_data'] is defined
+  tags:
+    - web-api
 
 - name: Delete DNS Record  
   cloudflare_dns:
@@ -130,6 +136,8 @@
     account_api_token: "{{ cloudflare_api_key }}"
   with_dict: "{{ letsencrypt_challenge['challenge_data'] | default({}) }}"
   when: letsencrypt_challenge['challenge_data'] is defined
+  tags:
+    - web-api
 
 - name: download the Let's Encrypt intermediate CA
   get_url:
