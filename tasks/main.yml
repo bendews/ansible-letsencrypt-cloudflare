@@ -81,7 +81,7 @@
     mode: "{{ certificate_files_mode }}"
 
 - name: initiate the Let's Encrypt challenge
-  letsencrypt:
+  acme_certificate:
     acme_directory: "{{ letsencrypt_acme_directory }}"
     challenge: dns-01
     account_key: "{{ letsencrypt_key_directory + '/' + letsencrypt_key_filename }}"
@@ -109,7 +109,7 @@
     - web-api
 
 - name: validate the Let's Encrypt challenge
-  letsencrypt:
+  acme_certificate:
     acme_directory: "{{ letsencrypt_acme_directory }}"
     challenge: dns-01
     account_key: "{{ letsencrypt_key_directory + '/' + letsencrypt_key_filename }}"
@@ -120,7 +120,7 @@
   register: letsencrypt_validation
   retries: 3
   delay: 10
-  until: letsencrypt_validation | success
+  until: letsencrypt_validation is success
   when: letsencrypt_challenge['challenge_data'] is defined
   tags:
     - web-api
