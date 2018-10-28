@@ -120,7 +120,7 @@
   register: letsencrypt_validation
   retries: 3
   delay: 10
-  until: letsencrypt_validation | success
+  until: letsencrypt_validation is success
   when: letsencrypt_challenge['challenge_data'] is defined
   tags:
     - web-api
