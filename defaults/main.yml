@@ -34,4 +34,8 @@ cloudflare_email: ""
 cloudflare_api_key: ""
 cloudflare_domain: ""
 
+dns_record_ttl: "120"
+acme_certificate_retries: "12"
+solo: true
+
 cleanup_all: no

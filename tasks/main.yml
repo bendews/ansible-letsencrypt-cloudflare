@@ -43,9 +43,9 @@
 
 - name: generate the CSR
   command: |
-    openssl req -new -sha256 -subj "/CN={{ certificate_common_name }}" 
-    -config "{{ certificate_directory }}/openssl-request.conf"  
-    -key "{{ certificate_directory + '/' + key_filename }}" 
+    openssl req -new -sha256 -subj "/CN={{ certificate_common_name }}"
+    -config "{{ certificate_directory }}/openssl-request.conf"
+    -key "{{ certificate_directory + '/' + key_filename }}"
     -out "{{ certificate_directory + '/' + csr_filename }}"
   args:
     creates: "{{ certificate_directory + '/' + csr_filename }}"
@@ -93,14 +93,15 @@
   tags:
     - web-api
 
-- name: Create DNS Record  
+- name: Create DNS Record
   cloudflare_dns:
     domain: "{{ cloudflare_domain }}"
     record: "_acme-challenge.{{ item.key }}"
     type: TXT
+    ttl: "{{ dns_record_ttl }}"
     value: "\"{{ item.value['dns-01']['resource_value'] }}\""
     state: present
-    solo: true
+    solo: "{{ solo }}"
     account_email: "{{ cloudflare_email }}"
     account_api_token: "{{ cloudflare_api_key }}"
   with_dict: "{{ letsencrypt_challenge['challenge_data'] | default({}) }}"
@@ -118,14 +119,14 @@
     account_email: "{{ letsencrypt_email }}"
     data: "{{ letsencrypt_challenge }}"
   register: letsencrypt_validation
-  retries: 3
+  retries: "{{ acme_certificate_retries }}"
   delay: 10
   until: letsencrypt_validation is success
   when: letsencrypt_challenge['challenge_data'] is defined
   tags:
     - web-api
 
-- name: Delete DNS Record  
+- name: Delete DNS Record
   cloudflare_dns:
     domain: "{{ cloudflare_domain }}"
     record: "_acme-challenge.{{ item.key }}"
