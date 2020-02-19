@@ -83,12 +83,14 @@
 - name: initiate the Let's Encrypt challenge
   acme_certificate:
     acme_directory: "{{ letsencrypt_acme_directory }}"
+    acme_version: "{{ letsencrypt_acme_version }}"
     challenge: dns-01
     account_key: "{{ letsencrypt_key_directory + '/' + letsencrypt_key_filename }}"
     csr: "{{ certificate_directory + '/' + csr_filename }}"
     dest: "{{ certificate_directory + '/' + crt_filename }}"
     account_email: "{{ letsencrypt_email }}"
     remaining_days: "{{ certificate_remaining_days }}"
+    terms_agreed: yes
   register: letsencrypt_challenge
   tags:
     - web-api
@@ -111,12 +113,14 @@
 - name: validate the Let's Encrypt challenge
   acme_certificate:
     acme_directory: "{{ letsencrypt_acme_directory }}"
+    acme_version: "{{ letsencrypt_acme_version }}"
     challenge: dns-01
     account_key: "{{ letsencrypt_key_directory + '/' + letsencrypt_key_filename }}"
     csr: "{{ certificate_directory + '/' + csr_filename }}"
     dest: "{{ certificate_directory + '/' + crt_filename }}"
     account_email: "{{ letsencrypt_email }}"
     data: "{{ letsencrypt_challenge }}"
+    terms_agreed: yes
   register: letsencrypt_validation
   retries: 3
   delay: 10
