@@ -98,7 +98,7 @@
 - name: Create DNS Record  
   cloudflare_dns:
     domain: "{{ cloudflare_domain }}"
-    record: "_acme-challenge.{{ item.key }}"
+    record: "{{ item.value['dns-01']['record'] }}"
     type: TXT
     value: "\"{{ item.value['dns-01']['resource_value'] }}\""
     state: present
@@ -132,7 +132,7 @@
 - name: Delete DNS Record  
   cloudflare_dns:
     domain: "{{ cloudflare_domain }}"
-    record: "_acme-challenge.{{ item.key }}"
+    record: "{{ item.value['dns-01']['record'] }}"
     type: TXT
     value: "\"{{ item.value['dns-01']['resource_value'] }}\""
     state: absent
