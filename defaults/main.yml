@@ -25,7 +25,7 @@ letsencrypt_key_filename: letsencrypt_account.key
 letsencrypt_production: no
 letsencrypt_acme_directory: "{{ 'https://acme-v02.api.letsencrypt.org/directory' if letsencrypt_production else 'https://acme-staging-v02.api.letsencrypt.org/directory' }}"
 letsencrypt_acme_version: 2
-
+letsencrypt_intermediate_ca_url: "https://letsencrypt.org/certs/lets-encrypt-r3.pem"
 
 include_intermediate: no
 intermediate_filename: "{{ certificate_common_name }}.intermediate.crt"

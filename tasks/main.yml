@@ -145,7 +145,7 @@
 
 - name: download the Let's Encrypt intermediate CA
   get_url:
-    url: https://letsencrypt.org/certs/lets-encrypt-r3-cross-signed.pem
+    url: "{{ letsencrypt_intermediate_ca_url }}"
     dest: "{{ certificate_directory + '/' + intermediate_filename }}"
     owner: "{{ certificate_files_owner }}"
     group: "{{ certificate_files_group }}"
